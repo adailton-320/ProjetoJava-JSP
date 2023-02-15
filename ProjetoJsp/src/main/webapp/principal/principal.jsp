@@ -1,14 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Tela Principal</title>
-</head>
+<html lang="en">
+
+<jsp:include page="head.jsp"></jsp:include>
+
 <body>
+	<!-- Pre-loader start -->
+	<jsp:include page="theme-loader.jsp"></jsp:include>
+	<!-- Pre-loader end -->
 
-<h1>Tela de Bem vindo!!</h1>
+	<div id="pcoded" class="pcoded">
+		<div class="pcoded-overlay-box"></div>
+		<div class="pcoded-container navbar-wrapper">
 
+			<jsp:include page="navbar.jsp"></jsp:include>
+
+			<div class="pcoded-main-container">
+				<div class="pcoded-wrapper">
+
+					<jsp:include page="navbarmenu.jsp"></jsp:include>
+
+
+					<div class="pcoded-content">
+
+						<!-- Page-header start -->
+						<jsp:include page="pageHeader.jsp"></jsp:include>
+						<!-- Page-header end -->
+
+						<div class="pcoded-inner-content">
+							<!-- Main-body start -->
+							<div class="main-body">
+								<div class="page-wrapper">
+									<!-- Page-body start -->
+									<div class="page-body">
+										<div class="row">
+											<!-- task, page, download counter  start -->
+											<h1>Conteudo do sistema</h1>
+											<!--  project and team member end -->
+										</div>
+									</div>
+									<!-- Page-body end -->
+								</div>
+								<div id="styleSelector"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<jsp:include page="javaScriptFile.jsp"></jsp:include>
 </body>
+
 </html>
