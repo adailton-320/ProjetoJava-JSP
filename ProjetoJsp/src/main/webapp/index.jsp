@@ -43,7 +43,7 @@ h5 {
 
 	<h1 class="topo">Login JSP</h1>
 
-	<form action="ServletLogin" method="post" class="row g-3 row g-3 needs-validation" novalidate>
+	<form action="<%=request.getContextPath() %>/ServletLogin" method="post" class="row g-3 row g-3 needs-validation" novalidate>
 	<input type="hidden" value="<%= request.getParameter("url") %>" name="url">
 
 		<div class="mb-6">
