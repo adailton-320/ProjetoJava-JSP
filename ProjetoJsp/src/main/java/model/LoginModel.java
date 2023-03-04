@@ -9,6 +9,7 @@ public class LoginModel implements Serializable {
 	private String nome;
 	private String login;
 	private String senha;
+	
 
 	public Long getId() {
 		return id;
@@ -45,5 +46,18 @@ public class LoginModel implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	/*Testa o id para cadastrar ou atualizar usuario*/
+	public boolean isNovo() {
+		 if(this.id == null) {   // testa para cadastrar
+			return true;
+			
+		}else if(this.id != null && this.id > 0) { // testa para atualizar
+			return false;
+			
+		}
+		return id == null;
+	}
+	
 
 }
