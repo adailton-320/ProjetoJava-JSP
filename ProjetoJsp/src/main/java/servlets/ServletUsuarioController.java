@@ -38,14 +38,16 @@ public class ServletUsuarioController extends HttpServlet {
 				usuarioDaoRepository.deletarUsuario(idUser);
 
 				request.setAttribute("msg", "Excluido com sucesso!");
+				request.getRequestDispatcher("principal/cadastro.jsp").forward(request, response);
 
-			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarAjax")) {
+			}else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("deletarAjax")) {
 
 				String idUser = request.getParameter("id");
 				usuarioDaoRepository.deletarUsuario(idUser);
 				response.getWriter().write("Excluido com sucesso!");
 
-			} else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
+			} 
+			else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
 
 				String nomeBusca = request.getParameter("buscarNomes");
 				List<LoginModel> dadosJsonUser = usuarioDaoRepository.consultarUsuarioList(nomeBusca);
