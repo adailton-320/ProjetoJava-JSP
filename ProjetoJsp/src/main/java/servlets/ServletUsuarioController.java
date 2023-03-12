@@ -36,6 +36,9 @@ public class ServletUsuarioController extends HttpServlet {
 				String idUser = request.getParameter("id");
 
 				usuarioDaoRepository.deletarUsuario(idUser);
+				
+				List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios();
+				request.setAttribute("listarUsuarios", listarUsuarios);
 
 				request.setAttribute("msg", "Excluido com sucesso!");
 				request.getRequestDispatcher("principal/cadastro.jsp").forward(request, response);
@@ -63,14 +66,30 @@ public class ServletUsuarioController extends HttpServlet {
 				String id= request.getParameter("id");
 				LoginModel redirecionarUser= usuarioDaoRepository.consultarUsuarioId(id);
 				
+				List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios();
+				request.setAttribute("listarUsuarios", listarUsuarios);
+				
 				request.setAttribute("msg", "Usuario em edição");
 				request.setAttribute("loginModel", redirecionarUser);
 				request.getRequestDispatcher("principal/cadastro.jsp").forward(request, response);
 
 				
 
-			}else {
+			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUsuarios")) {
+				
+				List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios();
+				
+				request.setAttribute("msg", "Usuarios carregados");
+				request.setAttribute("listarUsuarios", listarUsuarios);
 				request.getRequestDispatcher("principal/cadastro.jsp").forward(request, response);
+				
+				
+			
+				}else {
+					
+					List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios();
+					request.setAttribute("listarUsuarios", listarUsuarios);
+				    request.getRequestDispatcher("principal/cadastro.jsp").forward(request, response);
 				
 			}
 
@@ -113,6 +132,9 @@ public class ServletUsuarioController extends HttpServlet {
 				loginModel = usuarioDaoRepository.salvarUsuario(loginModel);
 
 			}
+			List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios();
+			request.setAttribute("listarUsuarios", listarUsuarios);
+			
 			request.setAttribute("msg", msg);
 			request.setAttribute("loginModel", loginModel);
 			request.getRequestDispatcher("principal/cadastro.jsp").forward(request, response);

@@ -53,7 +53,7 @@ public class UsuarioDaoRepository {
 		
 		public List<LoginModel> consultarUsuarioList(String nome) throws Exception{
 			List<LoginModel> listaUsuario = new ArrayList<LoginModel>();
-			String sql= "select * from loginmodel where upper (nome) like upper (?) ";
+			String sql= "select * from loginmodel where upper (nome) like upper (?) and useradmin is false";
 			
 			PreparedStatement preparedStatement= connection.prepareStatement(sql);
 			
@@ -74,10 +74,34 @@ public class UsuarioDaoRepository {
 			
 			return listaUsuario;
 		}
+		
+		public List<LoginModel> listarUsuarios() throws Exception {
+			List<LoginModel> listaUsuarios= new ArrayList<LoginModel>();
+			String sql= "select * from loginmodel where useradmin is false";
+			PreparedStatement preparedStatement= connection.prepareStatement(sql);
+			
+			ResultSet resultSet= preparedStatement.executeQuery();
+			while(resultSet.next()) {
+				LoginModel loginModel= new LoginModel();
+				loginModel.setId(resultSet.getLong("id"));
+				loginModel.setNome(resultSet.getString("nome"));
+				loginModel.setLogin(resultSet.getString("login"));
+				//loginModel.setSenha(resultSet.getString("senha"));
+				
+				listaUsuarios.add(loginModel);
+				
+				
+			}
+			
+			
+			return listaUsuarios;
+		}
+		
+		
 	
 	public LoginModel consultarUsuario(String usuario) throws Exception {
 		LoginModel loginModel= new LoginModel();
-		String sql="SELECT * FROM loginmodel where upper (login)= upper (?)";
+		String sql="SELECT * FROM loginmodel where upper (login)= upper (?) and useradmin is false";
 		
 		PreparedStatement preparedStatement= connection.prepareStatement(sql);
 		preparedStatement.setString(1, usuario);
@@ -95,7 +119,7 @@ public class UsuarioDaoRepository {
 	 
 	public LoginModel consultarUsuarioId(String id) throws Exception {
 		LoginModel loginModel= new LoginModel();
-		String sql= "select * from loginmodel where id= ?";
+		String sql= "select * from loginmodel where id= ? and useradmin is false";
 		
 		PreparedStatement preparedStatement= connection.prepareStatement(sql);
 		preparedStatement.setLong(1, Long.parseLong(id));
@@ -112,7 +136,7 @@ public class UsuarioDaoRepository {
 	}
 	
 	public void deletarUsuario(String id) throws Exception {
-		String sql="delete from loginmodel where id= ?";
+		String sql="delete from loginmodel where id= ? and useradmin is false";
 		PreparedStatement preparedStatement= connection.prepareStatement(sql);
 		
 		preparedStatement.setLong(1, Long.parseLong(id));
@@ -130,5 +154,7 @@ public class UsuarioDaoRepository {
 		
 		return resultSet.getBoolean("existe");
 	}
+
+	
 
 }

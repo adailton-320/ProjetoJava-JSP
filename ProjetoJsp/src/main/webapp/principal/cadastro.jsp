@@ -73,12 +73,10 @@
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">Senha</label>
                                                             </div>
-                                                            		<button type="button" class="btn btn-success btn-round waves-effect waves-light" onclick="limparForm();">Novo</button>
+                                                            		<button type="button" class="btn btn-success btn-round waves-effect waves-light" onclick="limparForm();">Limpar</button>
                                                            		 	<button class="btn btn-primary btn-round waves-effect waves-light">Salvar</button>
-                                                                	<button class="btn btn-primary btn-round waves-effect waves-light">Alterar</button>
                                                                 	<button type ="button" class="btn btn-primary btn-round waves-effect waves-light" data-toggle="modal" data-target="#pesquisarModal">
                                                                 	Pesquisar</button>
-            														
             														<button type="button" class="btn btn-danger btn-round waves-effect waves-light" onclick="excluirUser();">Excluir</button>
                                                            
                                                     </form>
@@ -88,7 +86,34 @@
                                                  </div>
                                                </div>
                                           </div>
-                                          <span>"${msg}"</span>
+                                          <span id= "msg">"${msg}"</span>
+                                          
+                                          <div style="height: 300px; overflow: scroll;" >
+												<table class="table table-striped" id="tabelaBuscaUsuario" >
+											  		<thead>
+											    		<tr>
+											      			<th scope="col">ID</th>
+											      			<th scope="col">Nome</th>
+														    <th scope="col">Login</th>
+														    <th scope="col">Ver</th>
+											    		</tr>
+											  		</thead>
+											  		<tbody>
+											  			<c:forEach items='${listarUsuarios}' var='listarUsuarios'>
+											  			<tr>
+											  			<td ><c:out value='${listarUsuarios.id}'></c:out></td>
+											  			<td ><c:out value='${listarUsuarios.nome}'></c:out></td>
+											  			<td ><c:out value='${listarUsuarios.login}'></c:out></td>
+											  			<td ><a class="btn btn-info btn-round waves-effect waves-light" href="<%=request.getContextPath()%>/ServletUsuarioController?acao=buscarEditar&id=${listarUsuarios.id}">Alterar</a></td>
+											  			</tr>
+											  			</c:forEach>
+											  
+											  		</tbody>
+												</table>
+	 
+	 										</div>
+                                          
+                                          
 
 										<!--  Finaliza divCentral principal -->
 
@@ -172,7 +197,7 @@
 			    	 $('#tabelaBuscaUsuario > tbody > tr').remove();
 					 
 					  for(var i = 0; i < json.length; i++){
-					      $('#tabelaBuscaUsuario > tbody').append('<tr> <td>'+json[i].id+'</td> <td> '+json[i].nome+'</td><td> '+json[i].login+'</td> <td><button onclick=editarVer('+json[i].id+') type="button" class="btn btn-info">Ver</button></td></tr>');
+					      $('#tabelaBuscaUsuario > tbody').append('<tr> <td>'+json[i].id+'</td> <td> '+json[i].nome+'</td><td> '+json[i].login+'</td> <td><button onclick=editarVer('+json[i].id+') type="button" class="btn btn-info">Alterar</button></td></tr>');
 					  }
 					  
 					  document.getElementById('totalBusca').textContent = 'Resultados: ' + json.length;
