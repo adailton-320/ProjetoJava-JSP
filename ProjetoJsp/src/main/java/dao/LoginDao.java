@@ -23,6 +23,7 @@ public class LoginDao {
 			PreparedStatement statement= connection.prepareStatement(sql);
 			statement.setString(1, usuario.getLogin());
 			statement.setString(2, usuario.getSenha());
+			
 			ResultSet resultSet= statement.executeQuery();
 			
 			if(resultSet.next()) {

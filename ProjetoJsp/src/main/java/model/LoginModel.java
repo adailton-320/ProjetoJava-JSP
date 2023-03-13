@@ -7,8 +7,11 @@ public class LoginModel implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String nome;
+	private String perfil;
 	private String login;
 	private String senha;
+	private Boolean useradmin;
+	
 	
 
 	public Long getId() {
@@ -30,6 +33,14 @@ public class LoginModel implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
+	public String getPerfil() {
+		return perfil;
+	}
+	
+	public void setPerfil(String perfil) {
+		this.perfil = perfil;
+	}
 
 	public void setLogin(String login) {
 		this.login = login;
@@ -41,6 +52,14 @@ public class LoginModel implements Serializable {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+	
+	public Boolean getUseradmin() {
+		return useradmin;
+	}
+	
+	public void setUseradmin(Boolean useradmin) {
+		this.useradmin = useradmin;
 	}
 
 	public static long getSerialversionuid() {

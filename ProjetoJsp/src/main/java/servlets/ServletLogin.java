@@ -11,12 +11,14 @@ import model.LoginModel;
 import java.io.IOException;
 
 import dao.LoginDao;
+import dao.UsuarioDaoRepository;
 
 @WebServlet(urlPatterns = { "/principal/ServletLogin", "/ServletLogin" }) /* Mapeamento url da tela */
 public class ServletLogin extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	LoginDao loginDao = new LoginDao();
+	UsuarioDaoRepository daoRepository= new UsuarioDaoRepository();
 
 	public ServletLogin() {
 		super();
@@ -60,8 +62,11 @@ public class ServletLogin extends HttpServlet {
 				loginModel.setSenha(servSenha);
 
 				if (loginDao.autenticarUser(loginModel)) {
+					
+					loginModel= daoRepository.consultarUsuarioLogin(servLogin);
 
 					request.getSession().setAttribute("usuario", loginModel.getLogin());
+					request.getSession().setAttribute("perfil", loginModel.getPerfil());
 
 					if (url == null || url.equalsIgnoreCase("null")) {
 						url = "principal/principal.jsp";

@@ -16,7 +16,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import dao.UsuarioDaoRepository;
 
 @WebServlet(urlPatterns = { "/principal/ServletUsuarioController", "/ServletUsuarioController" })
-public class ServletUsuarioController extends HttpServlet {
+public class ServletUsuarioController extends ServletGenericUtil {
 	private static final long serialVersionUID = 1L;
 
 	private UsuarioDaoRepository usuarioDaoRepository = new UsuarioDaoRepository();
@@ -37,7 +37,7 @@ public class ServletUsuarioController extends HttpServlet {
 
 				usuarioDaoRepository.deletarUsuario(idUser);
 				
-				List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios();
+				List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios(super.getUserLogado(request));
 				request.setAttribute("listarUsuarios", listarUsuarios);
 
 				request.setAttribute("msg", "Excluido com sucesso!");
@@ -53,7 +53,7 @@ public class ServletUsuarioController extends HttpServlet {
 			else if (acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarUserAjax")) {
 
 				String nomeBusca = request.getParameter("buscarNomes");
-				List<LoginModel> dadosJsonUser = usuarioDaoRepository.consultarUsuarioList(nomeBusca);
+				List<LoginModel> dadosJsonUser = usuarioDaoRepository.consultarUsuarioList(nomeBusca, super.getUserLogado(request));
 
 				ObjectMapper objectMapper = new ObjectMapper();
 				String json = objectMapper.writeValueAsString(dadosJsonUser);
@@ -64,9 +64,9 @@ public class ServletUsuarioController extends HttpServlet {
 			else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("buscarEditar")) {
 				
 				String id= request.getParameter("id");
-				LoginModel redirecionarUser= usuarioDaoRepository.consultarUsuarioId(id);
+				LoginModel redirecionarUser= usuarioDaoRepository.consultarUsuarioId(id, super.getUserLogado(request));
 				
-				List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios();
+				List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios(super.getUserLogado(request));
 				request.setAttribute("listarUsuarios", listarUsuarios);
 				
 				request.setAttribute("msg", "Usuario em edição");
@@ -77,7 +77,7 @@ public class ServletUsuarioController extends HttpServlet {
 
 			}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("listarUsuarios")) {
 				
-				List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios();
+				List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios(super.getUserLogado(request));
 				
 				request.setAttribute("msg", "Usuarios carregados");
 				request.setAttribute("listarUsuarios", listarUsuarios);
@@ -87,7 +87,7 @@ public class ServletUsuarioController extends HttpServlet {
 			
 				}else {
 					
-					List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios();
+					List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios(super.getUserLogado(request));
 					request.setAttribute("listarUsuarios", listarUsuarios);
 				    request.getRequestDispatcher("principal/cadastro.jsp").forward(request, response);
 				
@@ -108,6 +108,7 @@ public class ServletUsuarioController extends HttpServlet {
 		try {
 			String id = request.getParameter("id");
 			String nome = request.getParameter("nome");
+			String perfil= request.getParameter("perfil");
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
 
@@ -115,6 +116,7 @@ public class ServletUsuarioController extends HttpServlet {
 
 			loginModel.setId(id != null && !id.isEmpty() ? Long.parseLong(id) : null);
 			loginModel.setNome(nome);
+			loginModel.setPerfil(perfil);
 			loginModel.setLogin(login);
 			loginModel.setSenha(senha);
 
@@ -129,10 +131,10 @@ public class ServletUsuarioController extends HttpServlet {
 					msg = "Alterado com sucesso!";
 				}
 
-				loginModel = usuarioDaoRepository.salvarUsuario(loginModel);
+				loginModel = usuarioDaoRepository.salvarUsuario(loginModel, super.getUserLogado(request));
 
 			}
-			List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios();
+			List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios(super.getUserLogado(request));
 			request.setAttribute("listarUsuarios", listarUsuarios);
 			
 			request.setAttribute("msg", msg);

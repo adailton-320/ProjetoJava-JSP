@@ -63,10 +63,25 @@
                                                             </div>
                                                             
                                                             <div class="form-group form-default">
+                                                            	<select class="form-control" name="perfil" >
+																	  <option disabled="disabled">[Selecione o perfil]</option>
+																	  <option value="AUXILIAR">Auxiliar</option>
+																	  <option value="PROFISSIONAL">Profissional</option>
+																	  <option value="ADM">Administrador</option>
+																</select>
+																<span class="form-bar"></span>
+                                                                <label class="float-label">Perfil</label>
+                                                            
+                                                            
+                                                            </div>
+                                                            
+                                                            <div class="form-group form-default">
                                                                 <input type="text" name="login" id="login" class="form-control" required="required" value="${loginModel.login}">
                                                                 <span class="form-bar"></span>
                                                                 <label class="float-label">Login</label>
                                                             </div>
+                                                            
+                                                            
                                                             
                                                             <div class="form-group form-default">
                                                                 <input type="password" name="senha" id="senha" class="form-control" required="required" value="${loginModel.senha}">
