@@ -71,6 +71,7 @@ public class UsuarioDaoRepository {
 			loginModel.setNome(resultado.getString("nome"));
 			loginModel.setLogin(resultado.getString("login"));
 			// loginModel.setSenha(resultado.getString("senha"));
+			loginModel.setPerfil(resultado.getString("perfil"));
 
 			listaUsuario.add(loginModel);
 
@@ -91,6 +92,7 @@ public class UsuarioDaoRepository {
 			loginModel.setNome(resultSet.getString("nome"));
 			loginModel.setLogin(resultSet.getString("login"));
 			// loginModel.setSenha(resultSet.getString("senha"));
+			loginModel.setPerfil(resultSet.getString("perfil"));
 
 			listaUsuarios.add(loginModel);
 		}
@@ -133,6 +135,7 @@ public class UsuarioDaoRepository {
 			loginModel.setNome(resultSet.getString("nome"));
 			loginModel.setLogin(resultSet.getString("login"));
 			loginModel.setSenha(resultSet.getString("senha"));
+			loginModel.setPerfil(resultSet.getString("perfil"));
 
 		}
 
@@ -155,6 +158,7 @@ public class UsuarioDaoRepository {
 			loginModel.setLogin(resultSet.getString("login"));
 			loginModel.setNome(resultSet.getString("nome"));
 			loginModel.setSenha(resultSet.getString("senha"));
+			loginModel.setPerfil(resultSet.getString("perfil"));
 		}
 		return loginModel;
 	}
@@ -173,6 +177,7 @@ public class UsuarioDaoRepository {
 			loginModel.setLogin(resultSet.getString("login"));
 			loginModel.setNome(resultSet.getString("nome"));
 			loginModel.setSenha(resultSet.getString("senha"));
+			loginModel.setPerfil(resultSet.getString("perfil"));
 
 		}
 		return loginModel;
