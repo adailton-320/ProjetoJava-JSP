@@ -11,8 +11,8 @@ public class LoginModel implements Serializable {
 	private String login;
 	private String senha;
 	private Boolean useradmin;
-	
-	
+	private String userFoto;
+	private String extencaoFoto;
 
 	public Long getId() {
 		return id;
@@ -33,11 +33,11 @@ public class LoginModel implements Serializable {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+
 	public String getPerfil() {
 		return perfil;
 	}
-	
+
 	public void setPerfil(String perfil) {
 		this.perfil = perfil;
 	}
@@ -53,30 +53,45 @@ public class LoginModel implements Serializable {
 	public void setSenha(String senha) {
 		this.senha = senha;
 	}
-	
+
 	public Boolean getUseradmin() {
 		return useradmin;
 	}
-	
+
 	public void setUseradmin(Boolean useradmin) {
 		this.useradmin = useradmin;
+	}
+
+	public String getUserFoto() {
+		return userFoto;
+	}
+
+	public void setUserFoto(String userFoto) {
+		this.userFoto = userFoto;
+	}
+
+	public String getExtencaoFoto() {
+		return extencaoFoto;
+	}
+
+	public void setExtencaoFoto(String extencaoFoto) {
+		this.extencaoFoto = extencaoFoto;
 	}
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
-	/*Testa o id para cadastrar ou atualizar usuario*/
+
+	/* Testa o id para cadastrar ou atualizar usuario */
 	public boolean isNovo() {
-		 if(this.id == null) {   // testa para cadastrar
+		if (this.id == null) { // testa para cadastrar
 			return true;
-			
-		}else if(this.id != null && this.id > 0) { // testa para atualizar
+
+		} else if (this.id != null && this.id > 0) { // testa para atualizar
 			return false;
-			
+
 		}
 		return id == null;
 	}
-	
 
 }

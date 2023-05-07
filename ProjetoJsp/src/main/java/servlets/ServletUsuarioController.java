@@ -2,19 +2,25 @@ package servlets;
 
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import model.LoginModel;
 
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.tomcat.jakartaee.commons.compress.utils.IOUtils;
+import org.apache.tomcat.util.codec.binary.Base64;
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.UsuarioDaoRepository;
-
+@MultipartConfig
 @WebServlet(urlPatterns = { "/principal/ServletUsuarioController", "/ServletUsuarioController" })
 public class ServletUsuarioController extends ServletGenericUtil {
 	private static final long serialVersionUID = 1L;
@@ -119,6 +125,20 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			loginModel.setPerfil(perfil);
 			loginModel.setLogin(login);
 			loginModel.setSenha(senha);
+			
+			if(ServletFileUpload.isMultipartContent(request)) {  /*Testa foto enviada pelo usuario*/
+				Part part= request.getPart("fileFoto");
+				
+				if(part.getSize() > 0){
+					
+					byte[]foto= IOUtils.toByteArray(part.getInputStream());
+					String imagemBase64= "data:image/" + part.getContentType().split("\\/")[1] + ";base64," + new Base64().encodeBase64String(foto);
+					
+					loginModel.setUserFoto(imagemBase64);
+					loginModel.setExtencaoFoto(part.getContentType().split("\\/")[1]);
+					
+				}
+			}
 
 			if (usuarioDaoRepository.ValidarUsuario(loginModel.getLogin()) && loginModel.getId() == null) {
 

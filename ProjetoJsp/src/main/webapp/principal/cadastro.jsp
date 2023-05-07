@@ -48,6 +48,7 @@
 													</div>
 													<div class="card-block">
 														<form class="form-material"
+															enctype="multipart/form-data"
 															action="<%=request.getContextPath()%>/ServletUsuarioController"
 															method="post" id="formUser">
 
@@ -118,6 +119,19 @@
 																	value="${loginModel.senha}"> <span
 																	class="form-bar"></span> <label class="float-label">Senha</label>
 															</div>
+															
+															<div class="form-group form-default input-group mb-4">
+																<div class= "input-group-prepend">
+																<c:if test="${loginModel.userFoto != '' && loginModel.userFoto != null}">
+																	<img alt="Imagem User" id="fotoEmbase64" src=" ${loginModel.userFoto}" width="70px">
+																</c:if>	
+																<c:if test="${loginModel.userFoto == '' || loginModel.userFoto == null}">
+																	<img alt="Imagem User" id="fotoEmbase64" src="assets\images\user.jpeg" width="70px">
+																</c:if>
+																</div>
+																<input type="file" accept="image/*" id="fileFoto" name="fileFoto" onchange="visualizarImg('fotoEmbase64','fileFoto');" class="form-control-file" style="margin-top: 15px; margin-left: 5px; margin-right: 5px;">
+															</div>
+															
 															<button type="button"
 																class="btn btn-success btn-round waves-effect waves-light"
 																onclick="limparForm();">Limpar</button>
@@ -238,6 +252,26 @@
 	</div>
 
 	<script type="text/javascript">
+	
+	
+	function visualizarImg(fotoEmbase64 ,fileFoto) {
+		
+		var preview= document.getElementById(fotoEmbase64);
+		var fileUser= document.getElementById(fileFoto).files[0];
+		var reader= new FileReader();
+		
+		reader.onloadend= function(){
+			preview.src= reader.result;/*Carrega a foto*/
+		};
+		
+		if(fileUser){
+			reader.readAsDataURL(fileUser);/*Preview da imagem*/
+			
+		}else{
+			preview.src='';
+		}
+	}
+	
 		function buscarNome() {
 			var buscarNome = document.getElementById('buscarNomes').value;
 

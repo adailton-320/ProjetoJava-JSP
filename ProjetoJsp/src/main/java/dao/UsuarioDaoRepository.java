@@ -32,6 +32,19 @@ public class UsuarioDaoRepository {
 
 			preparedStatement.execute();
 			connection.commit();
+			
+			if(usuario.getUserFoto() != null && !usuario.getUserFoto().isEmpty()) {
+				sql="update loginModel set userfoto =?, extencaofoto =? where login=?";
+				preparedStatement = connection.prepareStatement(sql);
+				
+				preparedStatement.setString(1, usuario.getUserFoto());
+				preparedStatement.setString(2, usuario.getExtencaoFoto());
+				preparedStatement.setString(3,usuario.getLogin());
+				
+				preparedStatement.execute();
+				connection.commit();
+				
+			}
 
 		} else {
 
@@ -52,6 +65,19 @@ public class UsuarioDaoRepository {
 
 		preparedStatement.executeUpdate();
 		connection.commit();
+		
+		if(usuario.getUserFoto() != null && !usuario.getUserFoto().isEmpty()) {
+			sql="update loginModel set userfoto =?, extencaofoto =? where id=?";
+			preparedStatement = connection.prepareStatement(sql);
+			
+			preparedStatement.setString(1, usuario.getUserFoto());
+			preparedStatement.setString(2, usuario.getExtencaoFoto());
+			preparedStatement.setLong(3,usuario.getId());
+			
+			preparedStatement.execute();
+			connection.commit();
+			
+		}
 	}
 
 	public List<LoginModel> consultarUsuarioList(String nome, Long userLogado) throws Exception {
@@ -136,6 +162,7 @@ public class UsuarioDaoRepository {
 			loginModel.setLogin(resultSet.getString("login"));
 			loginModel.setSenha(resultSet.getString("senha"));
 			loginModel.setPerfil(resultSet.getString("perfil"));
+			loginModel.setUserFoto(resultSet.getString("userFoto"));
 
 		}
 
@@ -159,6 +186,7 @@ public class UsuarioDaoRepository {
 			loginModel.setNome(resultSet.getString("nome"));
 			loginModel.setSenha(resultSet.getString("senha"));
 			loginModel.setPerfil(resultSet.getString("perfil"));
+			loginModel.setUserFoto(resultSet.getString("userFoto"));
 		}
 		return loginModel;
 	}
@@ -178,6 +206,7 @@ public class UsuarioDaoRepository {
 			loginModel.setNome(resultSet.getString("nome"));
 			loginModel.setSenha(resultSet.getString("senha"));
 			loginModel.setPerfil(resultSet.getString("perfil"));
+			loginModel.setUserFoto(resultSet.getString("userFoto"));
 
 		}
 		return loginModel;
