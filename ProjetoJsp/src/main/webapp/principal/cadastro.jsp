@@ -123,9 +123,12 @@
 															<div class="form-group form-default input-group mb-4">
 																<div class= "input-group-prepend">
 																<c:if test="${loginModel.userFoto != '' && loginModel.userFoto != null}">
-																	<img alt="Imagem User" id="fotoEmbase64" src=" ${loginModel.userFoto}" width="70px">
+																	<a href= "<%=request.getContextPath()%>/ServletUsuarioController?acao=downloadFoto&id=${loginModel.id}">
+																		<img alt="Imagem User" id="fotoEmbase64" src=" ${loginModel.userFoto}" width="70px">
+																	</a>
 																</c:if>	
 																<c:if test="${loginModel.userFoto == '' || loginModel.userFoto == null}">
+																	
 																	<img alt="Imagem User" id="fotoEmbase64" src="assets\images\user.jpeg" width="70px">
 																</c:if>
 																</div>

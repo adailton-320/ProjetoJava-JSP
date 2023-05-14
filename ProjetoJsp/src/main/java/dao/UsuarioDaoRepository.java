@@ -207,6 +207,7 @@ public class UsuarioDaoRepository {
 			loginModel.setSenha(resultSet.getString("senha"));
 			loginModel.setPerfil(resultSet.getString("perfil"));
 			loginModel.setUserFoto(resultSet.getString("userFoto"));
+			loginModel.setExtencaoFoto(resultSet.getString("extencaofoto"));
 
 		}
 		return loginModel;
