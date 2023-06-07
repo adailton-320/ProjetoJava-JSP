@@ -19,11 +19,12 @@
                           </div>
                       </div>
                       <a href="index.html">
-                          <img class="img-fluid" src="<%=request.getContextPath()%>/assets/images/logo.png" alt="Theme-Logo" />
+                          <img class="img-fluid" src="<%=request.getContextPath()%>/assets/images/logo-jsp.png" width="50px"alt="Theme-Logo" />
                       </a>
-                      <a class="mobile-options waves-effect waves-light">
+                      
+                    	<a class="mobile-options waves-effect waves-light">
                           <i class="ti-more"></i>
-                      </a>
+                       </a>
                   </div>
                 
                   <div class="navbar-container container-fluid">
@@ -46,12 +47,14 @@
                               </a>
                           </li>
                       </ul>
+                      
                       <ul class="nav-right">
                           <li class="header-notification">
                               <a href="#!" class="waves-effect waves-light">
                                   <i class="ti-bell"></i>
                                   <span class="badge bg-c-red"></span>
                               </a>
+                         
                               <ul class="show-notification">
                                   <li>
                                       <h6>Notifications</h6>
@@ -87,16 +90,18 @@
                                           </div>
                                       </div>
                                   </li>
+                             
                               </ul>
                           </li>
                           <li class="user-profile header-notification">
                               <a href="#!" class="waves-effect waves-light">
-                                  <img src="<%=request.getContextPath()%>/assets/images/avatar-4.jpg" class="img-radius" alt="User-Profile-Image">
                                   <span><%= session.getAttribute("usuario") %></span>
                                   <i class="ti-angle-down"></i>
                               </a>
                               <ul class="show-notification profile-notification">
                                   <li class="waves-effect waves-light">
+                                  
+                                  <!--  
                                       <a href="#!">
                                           <i class="ti-settings"></i> Settings
                                       </a>
@@ -116,9 +121,11 @@
                                           <i class="ti-lock"></i> Lock Screen
                                       </a>
                                   </li>
+                            -->
+                                  
                                   <li class="waves-effect waves-light">
                                       <a href="<%=request.getContextPath() %>/ServletLogin?acao=logout">
-                                          <i class="ti-layout-sidebar-left"></i> Logout
+                                          <i class="ti-layout-sidebar-left"></i> Sair
                                       </a>
                                   </li>
                               </ul>
