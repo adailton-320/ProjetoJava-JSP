@@ -138,8 +138,10 @@
 															<button type="button"
 																class="btn btn-success btn-round waves-effect waves-light"
 																onclick="limparForm();">Limpar</button>
+															
 															<button
 																class="btn btn-primary btn-round waves-effect waves-light">Salvar</button>
+															
 															<button type="button"
 																class="btn btn-primary btn-round waves-effect waves-light"
 																data-toggle="modal" data-target="#pesquisarModal">

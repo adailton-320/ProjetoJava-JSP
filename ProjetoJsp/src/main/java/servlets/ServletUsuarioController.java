@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import model.LoginModel;
+import util.ReportUtil;
 
 import java.io.IOException;
 import java.util.List;
@@ -102,7 +103,48 @@ public class ServletUsuarioController extends ServletGenericUtil {
 				
 				
 				
-				}else {
+				}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("impriRelatorioUser")){
+
+						String dataInicial= request.getParameter("dataInicial");
+						String dataFinal= request.getParameter("dataFinal");
+						
+						if(dataInicial== null || dataInicial.isEmpty() 
+								&& dataFinal== null || dataFinal.isEmpty()) {
+							
+							request.setAttribute("listTela", usuarioDaoRepository.listarUsuariosRelatorio(super.getUserLogado(request)));
+						}else {
+							request.setAttribute("listTela", usuarioDaoRepository
+									.listarUsuariosRelatorio(super.getUserLogado(request), dataInicial, dataFinal));
+						}
+						
+						request.setAttribute("dataInicial", dataInicial);
+						request.setAttribute("dataFinal", dataFinal);
+
+						request.getRequestDispatcher("principal/telaRelatorio.jsp").forward(request, response);
+				
+				
+		}else if(acao != null && !acao.isEmpty() && acao.equalsIgnoreCase("impriRelatorioPDF")){
+			
+			String dataInicial= request.getParameter("dataInicial");
+			String dataFinal= request.getParameter("dataFinal");
+			
+			List<LoginModel> loginModels=null;
+			
+			if(dataInicial== null || dataInicial.isEmpty() 
+					&& dataFinal== null || dataFinal.isEmpty()) {
+				
+				loginModels= usuarioDaoRepository.listarUsuariosRelatorio(super.getUserLogado(request));
+			}else {
+				
+				loginModels= usuarioDaoRepository.listarUsuariosRelatorio(super.getUserLogado(request), dataInicial, dataFinal);
+				
+			}
+			
+			byte[] relatorioPDF= new ReportUtil().geraRelatorioPDF(loginModels, "relatorioUserJsp", request.getServletContext());
+			response.setHeader("Content-Disposition", "attachment;filename=arquivo.pdf");
+			response.getOutputStream().write(relatorioPDF);
+			
+		}else{
 				
 					List<LoginModel> listarUsuarios= usuarioDaoRepository.listarUsuarios(super.getUserLogado(request));
 					request.setAttribute("listarUsuarios", listarUsuarios);

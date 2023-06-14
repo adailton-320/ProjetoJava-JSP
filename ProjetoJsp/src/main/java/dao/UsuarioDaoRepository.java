@@ -125,6 +125,46 @@ public class UsuarioDaoRepository {
 
 		return listaUsuarios;
 	}
+	
+	public List<LoginModel> listarUsuariosRelatorio(Long userLogado) throws Exception {
+		List<LoginModel> listaUsuarios = new ArrayList<LoginModel>();
+		String sql = "select * from loginmodel where useradmin is false and usuario_id= " + userLogado;
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+		ResultSet resultSet = preparedStatement.executeQuery();
+		while (resultSet.next()) {
+			LoginModel loginModel = new LoginModel();
+			loginModel.setId(resultSet.getLong("id"));
+			loginModel.setNome(resultSet.getString("nome"));
+			loginModel.setLogin(resultSet.getString("login"));
+			// loginModel.setSenha(resultSet.getString("senha"));
+			loginModel.setPerfil(resultSet.getString("perfil"));
+
+			listaUsuarios.add(loginModel);
+		}
+
+		return listaUsuarios;
+	}
+	
+	public List<LoginModel> listarUsuariosRelatorio(Long userLogado, String dataInicial, String dataFinal) throws Exception {
+		List<LoginModel> listaUsuarios = new ArrayList<LoginModel>();
+		String sql = "select * from loginmodel where useradmin is false and usuario_id= " + userLogado;
+		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+
+		ResultSet resultSet = preparedStatement.executeQuery();
+		while (resultSet.next()) {
+			LoginModel loginModel = new LoginModel();
+			loginModel.setId(resultSet.getLong("id"));
+			loginModel.setNome(resultSet.getString("nome"));
+			loginModel.setLogin(resultSet.getString("login"));
+			// loginModel.setSenha(resultSet.getString("senha"));
+			loginModel.setPerfil(resultSet.getString("perfil"));
+
+			listaUsuarios.add(loginModel);
+		}
+
+		return listaUsuarios;
+	}
 
 	public LoginModel consultarUsuarioLogin(String login) throws Exception {
 		LoginModel loginModel = new LoginModel();
