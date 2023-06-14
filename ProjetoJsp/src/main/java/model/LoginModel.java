@@ -1,6 +1,8 @@
 package model;
 
 import java.io.Serializable;
+import java.sql.Date;
+
 
 public class LoginModel implements Serializable {
 
@@ -11,6 +13,7 @@ public class LoginModel implements Serializable {
 	private String login;
 	private String senha;
 	private Boolean useradmin;
+	private Date dataCadastro;
 	private String userFoto;
 	private String extencaoFoto;
 
@@ -77,10 +80,29 @@ public class LoginModel implements Serializable {
 	public void setExtencaoFoto(String extencaoFoto) {
 		this.extencaoFoto = extencaoFoto;
 	}
+	
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	
+	
 
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	//Pega data do sistema
+	
+	/*public String pegarData() {
+		DateFormat dateFormat= new SimpleDateFormat("dd/mm/yyyy");
+		Date data= new Date();
+		
+		return dateFormat.format(data);
+	}*/
 
 	/* Testa o id para cadastrar ou atualizar usuario */
 	public boolean isNovo() {
@@ -93,5 +115,8 @@ public class LoginModel implements Serializable {
 		}
 		return id == null;
 	}
+
+	
+	
 
 }

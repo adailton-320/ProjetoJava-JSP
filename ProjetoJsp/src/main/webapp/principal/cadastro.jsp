@@ -60,6 +60,15 @@
 																	readonly="readonly" value="${loginModel.id}"> <span
 																	class="form-bar"></span> <label class="float-label">ID</label>
 															</div>
+															
+															<div class="form-group form-default">
+																<input type="text" name="dataCadastro" id="dataCadastro"
+																	class="form-control" required="required"
+																	value="${loginModel.dataCadastro}"> <span
+																	class="form-bar"></span> <label class="float-label">Data Cadastro</label>
+															</div>
+															
+															 
 
 															<div class="form-group form-default">
 																<input type="text" name="nome" id="nome"
@@ -257,6 +266,20 @@
 	</div>
 
 	<script type="text/javascript">
+	
+	$( function() {
+		  
+		  $("#dataCadastro").datepicker({
+			    dateFormat: 'dd/mm/yy',
+			    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+			    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+			    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+			    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+			    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+			    nextText: 'Próximo',
+			    prevText: 'Anterior'
+			});
+	} );
 	
 	
 	function visualizarImg(fotoEmbase64 ,fileFoto) {

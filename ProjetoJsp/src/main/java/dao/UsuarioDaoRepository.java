@@ -1,8 +1,10 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class UsuarioDaoRepository {
 
 		if (usuario.isNovo()) {
 
-			String sql = "insert into loginmodel (nome, login, senha, usuario_id, perfil) values (?, ?, ?, ?, ?)";
+			String sql = "insert into loginmodel (nome, login, senha, usuario_id, perfil, datacadastro) values (?, ?, ?, ?, ?, ?)";
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
 			preparedStatement.setString(1, usuario.getNome());
@@ -29,10 +31,12 @@ public class UsuarioDaoRepository {
 			preparedStatement.setString(3, usuario.getSenha());
 			preparedStatement.setLong(4, userLogado);
 			preparedStatement.setString(5, usuario.getPerfil());
+			preparedStatement.setDate(6, usuario.getDataCadastro());
 
 			preparedStatement.execute();
 			connection.commit();
 			
+			/*Testa usuario e salva foto no banco*/
 			if(usuario.getUserFoto() != null && !usuario.getUserFoto().isEmpty()) {
 				sql="update loginModel set userfoto =?, extencaofoto =? where login=?";
 				preparedStatement = connection.prepareStatement(sql);
@@ -55,13 +59,14 @@ public class UsuarioDaoRepository {
 	}
 
 	public void alterarUsuario(LoginModel usuario) throws Exception {
-		String sql = "update loginmodel set nome=?, login=?, senha=?, perfil=? where id= " + usuario.getId() + ";";
+		String sql = "update loginmodel set nome=?, login=?, senha=?, perfil=?, datacadastro=? where id= " + usuario.getId() + ";";
 
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
 		preparedStatement.setString(1, usuario.getNome());
 		preparedStatement.setString(2, usuario.getLogin());
 		preparedStatement.setString(3, usuario.getSenha());
 		preparedStatement.setString(4, usuario.getPerfil());
+		preparedStatement.setDate(5, usuario.getDataCadastro());
 
 		preparedStatement.executeUpdate();
 		connection.commit();
@@ -148,8 +153,10 @@ public class UsuarioDaoRepository {
 	
 	public List<LoginModel> listarUsuariosRelatorio(Long userLogado, String dataInicial, String dataFinal) throws Exception {
 		List<LoginModel> listaUsuarios = new ArrayList<LoginModel>();
-		String sql = "select * from loginmodel where useradmin is false and usuario_id= " + userLogado;
+		String sql = "select * from loginmodel where useradmin is false and usuario_id= " + userLogado+ " and datacadastro >= ? and datacadastro <= ? ";
 		PreparedStatement preparedStatement = connection.prepareStatement(sql);
+		preparedStatement.setDate(1,(Date.valueOf(new SimpleDateFormat("yyyy-mm-dd").format(new SimpleDateFormat("dd/mm/yyyy").parse(dataInicial)))));
+		preparedStatement.setDate(2,(Date.valueOf(new SimpleDateFormat("yyyy-mm-dd").format(new SimpleDateFormat("dd/mm/yyyy").parse(dataFinal)))));
 
 		ResultSet resultSet = preparedStatement.executeQuery();
 		while (resultSet.next()) {

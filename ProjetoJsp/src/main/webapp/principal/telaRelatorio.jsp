@@ -51,16 +51,17 @@
 															<input type="hidden" id="acaoRelatorio" name="acao" value="impriRelatorioUser">
 
 															<!-- Inicio campo data-filtro -->
+															
 															<div class="form-row align-items-center">
 																<div class="col-sm-3 my-1">
 																	<label class="sr-only" for="dataInicial">Data Inicial</label>
-																	<input type="date" value="${dataInicial}" class="form-control"
+																	<input type="text" value="${dataInicial}" class="form-control" placeholder="Data Inicial"
 																		id="dataInicial" name="dataInicial">
 																</div>
 																
 																<div class="col-sm-3 my-1">
 																	<label class="sr-only" for="dataFinal">Data Final</label>
-																	<input type="date" value="${dataFinal}" class="form-control"
+																	<input type="text" value="${dataFinal}" class="form-control" placeholder="Data Final"
 																		id="dataFinal" name="dataFinal">
 																</div>
 																
@@ -123,6 +124,34 @@
 	<jsp:include page="javaScriptFile.jsp"></jsp:include>
 	
 	<script type="text/javascript">
+	
+	$( function() {
+		  
+		  $("#dataInicial").datepicker({
+			    dateFormat: 'dd/mm/yy',
+			    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+			    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+			    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+			    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+			    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+			    nextText: 'Próximo',
+			    prevText: 'Anterior'
+			});
+	} );
+	
+	$( function() {
+		  
+		  $("#dataFinal").datepicker({
+			    dateFormat: 'dd/mm/yy',
+			    dayNames: ['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'],
+			    dayNamesMin: ['D','S','T','Q','Q','S','S','D'],
+			    dayNamesShort: ['Dom','Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],
+			    monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'],
+			    monthNamesShort: ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+			    nextText: 'Próximo',
+			    prevText: 'Anterior'
+			});
+	} );
 	
 	function ImprimirTela() {
 		document.getElementById("acaoRelatorio").value='impriRelatorioUser';

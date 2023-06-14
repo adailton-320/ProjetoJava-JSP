@@ -1,17 +1,8 @@
 package servlets;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.MultipartConfig;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.Part;
-import model.LoginModel;
-import util.ReportUtil;
-
 import java.io.IOException;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.tomcat.jakartaee.commons.compress.utils.IOUtils;
@@ -21,6 +12,15 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import dao.UsuarioDaoRepository;
+import jakarta.servlet.RequestDispatcher;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
+import model.LoginModel;
+import util.ReportUtil;
 @MultipartConfig
 @WebServlet(urlPatterns = { "/principal/ServletUsuarioController", "/ServletUsuarioController" })
 public class ServletUsuarioController extends ServletGenericUtil {
@@ -115,6 +115,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 						}else {
 							request.setAttribute("listTela", usuarioDaoRepository
 									.listarUsuariosRelatorio(super.getUserLogado(request), dataInicial, dataFinal));
+							
 						}
 						
 						request.setAttribute("dataInicial", dataInicial);
@@ -170,6 +171,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			String perfil= request.getParameter("perfil");
 			String login = request.getParameter("login");
 			String senha = request.getParameter("senha");
+			String dataCadastro= request.getParameter("dataCadastro");
 
 			LoginModel loginModel = new LoginModel();
 
@@ -178,6 +180,7 @@ public class ServletUsuarioController extends ServletGenericUtil {
 			loginModel.setPerfil(perfil);
 			loginModel.setLogin(login);
 			loginModel.setSenha(senha);
+			loginModel.setDataCadastro(Date.valueOf(new SimpleDateFormat("yyyy-mm-dd").format(new SimpleDateFormat("dd/mm/yyyy").parse(dataCadastro))));
 			
 			if(ServletFileUpload.isMultipartContent(request)) {  /*Testa foto enviada pelo usuario*/
 				Part part= request.getPart("fileFoto");
