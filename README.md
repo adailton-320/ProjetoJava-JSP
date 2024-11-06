@@ -138,6 +138,3 @@ ALTER TABLE public.loginmodel OWNER TO postgres;
 </p>
 
 
-Endereço da aplicação 
-http://localhost:8080/ProjetoJsp/
-
